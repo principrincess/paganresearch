@@ -2,9 +2,16 @@ package utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -25,6 +32,7 @@ public class Helper {
 
     public static void generateExcel(String fileName, String sheetName, HashMap<String, ArrayList<String>> map) {
 
+        ///create workbook
         XSSFWorkbook workbook = new XSSFWorkbook();
 
 
@@ -124,6 +132,23 @@ public class Helper {
     public static String getSourceCode(WebDriver driver) {
         return driver.getPageSource();
     }
+
+    public static int getFileCount(String fileType) {
+        int fileCount = 0;
+        Path currentRelativePath = Paths.get("");
+        String absolutePath = currentRelativePath.toAbsolutePath().toString();
+        try (Stream<Path> walk = Files.walk(Paths.get(absolutePath))) {
+            List<String> result = walk.map(x -> x.toString())
+                    .filter(f -> f.endsWith(fileType)).collect(Collectors.toList());
+          //  result.forEach(System.out::println);
+            fileCount = result.size();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return fileCount;
+    }
+
+
 }
 
 

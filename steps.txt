@@ -1,0 +1,27 @@
+
+
+1     initialize webdriver
+
+2     iniialize resultmap for storing data
+
+3      public int login() -
+
+logged in to website
+go to contact page
+find the total no of pages using total contacts
+
+4   After successfully login-
+
+find the total no of excel file
+according to total no of excel file - skip pages in the website already crawled
+
+5      //get the data from the website
+       public void getPageData(String url)
+
+6    Generate excel
+7    update data into excel sheet
+8
+
+
+
+
